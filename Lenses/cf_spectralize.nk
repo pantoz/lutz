@@ -1,0 +1,215 @@
+set cut_paste_input [stack 0]
+version 12.0 v1
+push 0
+push 0
+push $cut_paste_input
+Group {
+ inputs 3
+ name cf_spectralize
+ tile_color 0xff00ffff
+ selected true
+ xpos -2753
+ ypos 321
+ addUserKnob {20 User}
+ addUserKnob {41 channels T STMap1.channels}
+ addUserKnob {41 divisions T TimeBlur1.divisions}
+ addUserKnob {41 filter T STMap1.filter}
+}
+ Input {
+  inputs 0
+  name img
+  xpos -267
+  ypos 158
+ }
+ NoTimeBlur {
+  name NoTimeBlur3
+  xpos -267
+  ypos 198
+ }
+ Dot {
+  name Dot2
+  xpos -233
+  ypos 334
+ }
+set N6f11a800 [stack 0]
+ Dot {
+  name Dot6
+  xpos -157
+  ypos 334
+ }
+ Dot {
+  name Dot5
+  xpos -157
+  ypos 895
+ }
+push $N6f11a800
+ Dot {
+  name Dot4
+  xpos -487
+  ypos 334
+ }
+push 0
+ CopyBBox {
+  inputs 2
+  name CopyBBox1
+  xpos -521
+  ypos 413
+ }
+ Shuffle {
+  red white
+  green white
+  blue white
+  alpha black
+  name Shuffle1
+  tile_color 0xffffff00
+  xpos -521
+  ypos 439
+ }
+ Dot {
+  name Dot1
+  xpos -487
+  ypos 476
+ }
+set N6f139000 [stack 0]
+ Dot {
+  name Dot13
+  xpos -411
+  ypos 476
+ }
+ Dot {
+  name Dot12
+  xpos -411
+  ypos 710
+ }
+push $N6f139000
+ Multiply {
+  channels rgb
+  value {{parent.Multiply1.value x1 1} {parent.Multiply1.value} {parent.Multiply1.value} {parent.Multiply1.value}}
+  value_panelDropped true
+  name Multiply2
+  xpos -521
+  ypos 504
+ }
+ TimeBlur {
+  divisions {{parent.TimeBlur1.divisions}}
+  shutter {{parent.TimeBlur1.shutter}}
+  shutteroffset start
+  shuttercustomoffset 0
+  name TimeBlur2
+  xpos -521
+  ypos 635
+ }
+ Merge2 {
+  inputs 2
+  operation divide
+  name Merge1
+  xpos -521
+  ypos 706
+ }
+ Dot {
+  name Dot14
+  xpos -487
+  ypos 795
+ }
+ Input {
+  inputs 0
+  name from
+  xpos -4
+  ypos 150
+  number 2
+ }
+ NoTimeBlur {
+  name NoTimeBlur2
+  xpos -4
+  ypos 191
+ }
+ Dot {
+  name Dot3
+  xpos 30
+  ypos 474
+ }
+ Input {
+  inputs 0
+  name to
+  xpos 131
+  ypos 150
+  number 1
+ }
+ NoTimeBlur {
+  name NoTimeBlur1
+  xpos 131
+  ypos 190
+ }
+ Dot {
+  name Dot7
+  xpos 165
+  ypos 476
+ }
+ Dot {
+  name Dot8
+  xpos 165
+  ypos 565
+ }
+ Dissolve {
+  inputs 2
+  channels {rgba.red rgba.green -rgba.blue none}
+  which {{clamp((frame%1)/(5/6)) x1 0}}
+  name Dissolve1
+  xpos -4
+  ypos 561
+ }
+ Dot {
+  name Dot9
+  xpos 30
+  ypos 688
+ }
+push $N6f11a800
+ Multiply {
+  channels rgb
+  value {{"frame%1 < 1/6 ? (frame%1)/(1/6) : frame%1 < 2/6 ? 1 : frame%1 < 3/6 ? (1-(frame*6)%1) : 0" x1 1} {"(frame-1/6)%1 < 1/6 ? ((frame-1/6)%1)/(1/6) : (frame-1/6)%1 < 2/6 ? 1 : (frame-1/6)%1 < 3/6 ? (1-((frame-1/6)/(1/6))%1) : 0"} {"(frame-2/6)%1 < 1/6 ? ((frame-2/6)%1)/(1/6) : (frame-2/6)%1 < 2/6 ? 1 : (frame-2/6)%1 < 3/6 ? (1-((frame-2/6)*6)%1) : 0"} {curve}}
+  value_panelDropped true
+  name Multiply1
+  xpos -267
+  ypos 523
+ }
+ STMap {
+  inputs 2
+  channels rgba
+  uv rgb
+  name STMap1
+  xpos -267
+  ypos 684
+ }
+ TimeBlur {
+  divisions 20
+  shutter 0.8333333333
+  shutteroffset start
+  shuttercustomoffset 0
+  name TimeBlur1
+  xpos -267
+  ypos 734
+ }
+ Merge2 {
+  inputs 2
+  operation multiply
+  name Multiply
+  xpos -267
+  ypos 791
+ }
+ CopyMetaData {
+  inputs 2
+  name CopyMetaData1
+  xpos -267
+  ypos 891
+ }
+ Dot {
+  name Dot10
+  xpos -233
+  ypos 989
+ }
+ Output {
+  name Output1
+  xpos -233
+  ypos 1089
+ }
+end_group
